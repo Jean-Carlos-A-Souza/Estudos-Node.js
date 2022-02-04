@@ -1,6 +1,8 @@
 import User from "../models/user.model";
 import db from "../db";
 import { Script } from "vm";
+import { DatabaseError } from "pg";
+import DatabaseErro from "../models/error/databaseerror.model";
 
 class UserRepository{
 
@@ -14,6 +16,7 @@ class UserRepository{
     }
 
     async findById(uuid: String): Promise<User>{
+        try{
         const query = 
         'SELECT uuid, username FROM  application_user WHERE uuid = $1';
     
@@ -22,6 +25,10 @@ class UserRepository{
     
         const[user] = rows;
         return user;
+    }catch(error){
+        throw new DatabaseErro("Erro na Consulta Por ID", error);
+            
+    };
 
     }
 
