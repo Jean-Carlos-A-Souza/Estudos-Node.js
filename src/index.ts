@@ -1,5 +1,6 @@
 
 import express, {Request, Response, NextFunction } from 'express';
+import bearerAuthenticationMiddleware from './middlewares/bearer.authentication.middleware';
 import errorHandler from './middlewares/erro-handler';
 import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
@@ -10,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(usersRoute);
+app.use(bearerAuthenticationMiddleware, usersRoute);
 
 app.use(statusRoute);
 
