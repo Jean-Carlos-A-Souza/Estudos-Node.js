@@ -1,6 +1,7 @@
 
 import express, {Request, Response, NextFunction } from 'express';
 import errorHandler from './middlewares/erro-handler';
+import authorizationRoute from './routes/authorization.route';
 import statusRoute from './routes/status.route';
 import usersRoute from './routes/users.route';
 
@@ -14,6 +15,8 @@ app.use(usersRoute);
 app.use(statusRoute);
 
 app.use(errorHandler);
+
+app.use(authorizationRoute);
 
 
 app.listen(3000, () =>{
