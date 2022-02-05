@@ -11,14 +11,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-app.use(bearerAuthenticationMiddleware, usersRoute);
 
 app.use(statusRoute);
 
 app.use(errorHandler);
 
 app.use(authorizationRoute);
-
+app.use(bearerAuthenticationMiddleware, usersRoute);
 
 app.listen(3000, () =>{
     console.log('Aplicação executando na porta 3000!!!');

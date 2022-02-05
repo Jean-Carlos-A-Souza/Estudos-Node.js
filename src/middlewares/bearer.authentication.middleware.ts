@@ -17,6 +17,7 @@ async function bearerAuthenticationMiddleware(req: Request, res: Response, next:
             throw new ForbiddenError('Tipo de Authenticação Invalida');
         }
 
+        try{
         const tokenPayload = JWT.verify(token, 'my_secret_key');
 
 
@@ -32,6 +33,10 @@ async function bearerAuthenticationMiddleware(req: Request, res: Response, next:
         req.user = user;
 
         next();
+    }catch(error){
+        throw new ForbiddenError("Token Invalido");
+
+    }
     }catch(error){
         next(error);
     }
